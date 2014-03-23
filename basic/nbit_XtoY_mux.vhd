@@ -26,11 +26,10 @@ process(input,enable) begin
 	for i in 0 to numInputs-1 loop
 		inputs(i) <= input(((i+1)*bitPerInput)-1 downto i*bitPerInput);
 	end loop;
+     output <= inputs(to_integer(unsigned(selectors)));
   else
-	inputs <= (others => '0');
+	output <= (others=>'0');
   end if;
 end process;
-
-	output <= inputs(to_integer(unsigned(selectors)));
 
 end primary;
