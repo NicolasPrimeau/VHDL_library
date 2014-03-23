@@ -49,7 +49,9 @@ type RAM is array (numAdr-1 downto 0) of std_logic_vector(memSize -1);
 signal memory: RAM;
 begin
   if(reset = '1') then
-    memory(numAdr-1 downto 0)(memSize -1) => (others =>'0');
+    for i in 0 to numAdr-1 loop 
+        memory(i) <= std_logic_vector(to_unsigned(0,memSize));
+    end loop; 
 	 dataOut <= (others => '0');
   elsif(rd_wr = '0') then
     dataOut <= memory(to_integer(unsigned(addr)));
