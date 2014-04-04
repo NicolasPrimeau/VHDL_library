@@ -21,14 +21,17 @@ type inputArray is array (numInputs-1 downto 0) of std_logic_vector(bitPerInput-
 signal inputs: inputArray;
 
 begin
-process(input,enable,selectors,inputs) begin
+process(input,enable,inputs,selectors) begin
   if(enable ='1') then
-	for i in 0 to numInputs-1 loop
-		inputs(i) <= input(((i+1)*bitPerInput)-1 downto i*bitPerInput);
-	end loop;
-     output <= inputs(to_integer(unsigned(selectors)));
+	 for i in 0 to numInputs-1 loop
+      inputs(i) <= input(((i+1)*bitPerInput)-1 downto i*bitPerInput);
+	 end loop;
+	 output <= inputs(to_integer(unsigned(selectors)));
   else
-	output <= (others=>'0');
+    output <= (others=>'0');
+	 for i in 0 to numInputs-1 loop
+      inputs(i) <= (others=>'0');
+	 end loop;
   end if;
 end process;
 
